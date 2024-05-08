@@ -1,0 +1,15 @@
+---
+- name: Deploy Java Application to Tomcat
+  hosts: tomcat_server
+  tasks:
+    - name: Copy WAR file to Tomcat webapps directory
+      become: yes
+      copy:
+        src: /path/to/helloworld_project/target/*.war
+        dest: /path/to/tomcat/webapps/
+
+    - name: Restart Tomcat
+      become: yes
+      systemd:
+        name: tomcat
+        state: restarted
